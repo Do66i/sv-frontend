@@ -1,0 +1,41 @@
+# --- 환경변수 (Vite 전용 포함) ---
+.env
+.env*.local
+# .env.development.local, .env.production.local 등을 모두 포함
+
+# --- 의존성 및 로그 ---
+node_modules/
+dist/
+dist-ssr/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# --- Vite 관련 캐시 ---
+.vite/
+.parcel-cache/
+.turbo/
+
+# --- IDE 및 에디터 (VS Code & Volar/Vetur) ---
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+!.vscode/launch.json
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+.DS_Store
+
+# --- TypeScript 관련 ---
+*.tsbuildinfo
+
+# --- 테스트 (Vitest / Cypress) ---
+/coverage/
+/test/results/
+/cypress/screenshots/
+/cypress/videos/
