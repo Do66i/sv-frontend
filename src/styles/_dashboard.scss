@@ -719,34 +719,102 @@
     }
   }
 
-  // [8] 로그인 배너
-  .promo-banner {
+  // [8] 로그인 배너 (하이엔드 프리미엄 버전)
+  .promo-banner.premium-locked {
     grid-column: 1 / -1;
-    min-height: auto !important; // 배너도 높이 자동
-    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-    padding: 64px 32px;
+    min-height: 450px !important;
+    margin-top: 60px;
+    background: #0a0a0a; // 완전한 블랙에 가까운 딥 다크
     border-radius: var.$radius-xl;
-    margin-top: 40px;
-    text-align: center;
+    border: 1px solid #222 !important;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-    h4 {
-      color: #fff;
-      font-size: 1.8rem;
-      font-weight: 800;
+    // 정교한 스켈레톤 UI
+    .skeleton-container {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      padding: 60px;
+      opacity: 0.08;
+      filter: blur(8px);
+      pointer-events: none;
+
+      .sk-row { background: #fff; border-radius: 4px; margin-bottom: 30px; }
+      .sk-title { width: 40%; height: 40px; }
+      .sk-grid { display: flex; gap: 24px; .sk-card { flex: 1; height: 200px; background: #fff; border-radius: 20px; } }
     }
 
-    .login-btn {
-      display: inline-block;
-      margin-top: 32px;
-      padding: 16px 48px;
-      background: var.$color-primary;
-      color: #fff;
-      font-weight: 800;
-      border-radius: 16px;
+    // 자물쇠 쉴드
+    .lock-shield {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      display: flex; align-items: center; justify-content: center;
+      z-index: 1;
 
-      &:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 15px 30px rgba(var.$color-primary, 0.5);
+      .lock-inner {
+        color: #d4af37; // 차분한 골드 톤
+        width: 120px;
+        height: 120px;
+        opacity: 0.3;
+        svg { width: 100%; height: 100%; }
+      }
+    }
+
+    .promo-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      max-width: 600px;
+
+      .premium-badge {
+        display: inline-block;
+        font-size: 0.7rem;
+        font-weight: 800;
+        color: #d4af37;
+        border: 1px solid rgba(212, 175, 55, 0.4);
+        padding: 4px 16px;
+        border-radius: 100px;
+        letter-spacing: 0.2em;
+        margin-bottom: 32px;
+      }
+
+      h4 {
+        color: #fff !important;
+        font-size: 2.2rem;
+        font-weight: 700;
+        line-height: 1.4;
+        margin-bottom: 24px;
+        letter-spacing: -0.05em;
+      }
+
+      .promo-desc {
+        color: #888;
+        font-size: 1.1rem;
+        line-height: 1.8;
+        margin-bottom: 48px;
+        word-break: keep-all;
+      }
+
+      .exclusive-btn {
+        background: #fff; // 단호한 화이트 버튼
+        color: #000;
+        padding: 18px 64px;
+        font-size: 1.1rem;
+        font-weight: 800;
+        border-radius: 12px;
+        border: none;
+        cursor: pointer;
+        transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+
+        &:hover {
+          background: #d4af37;
+          color: #fff;
+          transform: translateY(-4px);
+          box-shadow: 0 20px 40px rgba(212, 175, 55, 0.2);
+        }
       }
     }
   }
