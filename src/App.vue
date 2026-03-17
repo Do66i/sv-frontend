@@ -1,30 +1,46 @@
-<script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue'
-</script>
-
 <template>
-  <div>
-    <a href="https://vite.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
+  <div class="gemini-layout" :class="{ 'sidebar-collapsed': isCollapsed }">
+    <aside class="side-panel">
+      <div class="top-section">
+        <button class="menu-btn" @click="toggleSidebar">☰</button>
+      </div>
+
+      <nav class="nav-list">
+        <router-link
+          v-for="item in menuItems"
+          :key="item.id"
+          :to="item.path"
+          class="nav-item"
+          active-class="active"
+        >
+          <span class="icon">{{ item.icon }}</span>
+          <span v-if="!isCollapsed" class="text">{{ item.title }}</span>
+        </router-link>
+      </nav>
+    </aside>
+
+    <div class="main-container">
+      <header class="top-bar">
+        <div class="user-info">
+          <span class="user-name">Gwon님</span>
+          <div class="user-profile">G</div>
+        </div>
+      </header>
+
+      <main class="content-view">
+        <router-view />
+      </main>
+    </div>
   </div>
-  <HelloWorld msg="Vite + Vue" />
 </template>
 
-<style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
-}
-</style>
+<script setup lang="ts">
+import { ref } from 'vue';
+import { menuItems } from '@/router/menu';
+
+const isCollapsed = ref(false);
+
+const toggleSidebar = () => {
+  isCollapsed.value = !isCollapsed.value;
+};
+</script>

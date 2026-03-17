@@ -1,0 +1,30 @@
+@use "variables" as var; // 변수 파일을 var라는 이름으로 가져옴
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Pretendard', -apple-system, sans-serif;
+  color: var.$gray-900; // $gray-900 대신 var.$gray-900 사용
+  background-color: #fcfcfc;
+  line-height: 1.5;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul, li {
+  list-style: none;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-family: inherit;
+}

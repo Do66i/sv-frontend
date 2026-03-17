@@ -1,0 +1,47 @@
+/* 기본 리셋: 레이아웃 간섭 요소 제거 */
+:root {
+  font-family: 'Pretendard', system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  /* 다크모드/라이트모드 배경색 간섭 방지 */
+  color-scheme: light;
+  background-color: #f8fafc;
+  color: #1e293b;
+
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  /* place-items: center 삭제 -> 이게 레이아웃 파괴의 주범 */
+  min-width: 100vw;
+  min-height: 100vh;
+}
+
+#app {
+  /* Vite 기본 설정인 max-width와 margin: 0 auto 삭제 */
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  text-align: left; /* 기본 정렬을 왼쪽으로 */
+}
+
+/* 박스 모델 초기화 */
+* {
+  box-sizing: border-box;
+}
+
+button {
+  cursor: pointer;
+  font-family: inherit;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
