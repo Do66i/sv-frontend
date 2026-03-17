@@ -1,11 +1,11 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import BoardList from "../views/BoardList.vue";
+import Board from "../views/Board.vue";
 
 const routes = [
     {
         path: '/',
         name: 'BoardList',
-        component: BoardList
+        component: Board
     },
     // 추후 게시글 상세 페이지, 게시글 작성 페이지 등 추가 예정
 ];
