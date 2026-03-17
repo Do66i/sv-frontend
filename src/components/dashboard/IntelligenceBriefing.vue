@@ -17,9 +17,9 @@
       </p>
 
       <div class="brief-tags">
-        <span class="tag">#NVIDIA</span>
-        <span class="tag">#ISA_혜택</span>
-        <span class="tag">#시장관망</span>
+        <span class="tag">NVIDIA</span>
+        <span class="tag">ISA_혜택</span>
+        <span class="tag">시장관망</span>
       </div>
     </div>
   </header>
