@@ -11,7 +11,7 @@ const router = createRouter({
         {
             path: '/community',
             name: 'community',
-            component: () => import('@/views/BoardList.vue'), // 기존 게시판
+            component: () => import('@/views/Board.vue'), // 기존 게시판
         },
         {
             path: '/intelligence',

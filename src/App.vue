@@ -38,7 +38,7 @@
 import { ref } from 'vue';
 import { menuItems } from '@/router/menu';
 
-const isCollapsed = ref(false);
+const isCollapsed = ref(true);
 
 const toggleSidebar = () => {
   isCollapsed.value = !isCollapsed.value;

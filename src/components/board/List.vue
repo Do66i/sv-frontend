@@ -24,7 +24,7 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
-import BoardItem from '@/components/board/Item.vue'; // << 수정: 컴포넌트 임포트 추가
+import BoardItem from './Item.vue'; // << 수정: 컴포넌트 임포트 추가
 import { mockBoards } from '@/api/mockData';
 
 const boards = ref<any[]>([]);
