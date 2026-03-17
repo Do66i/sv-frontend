@@ -5,7 +5,7 @@
     <div class="dashboard-grid">
       <MetricWidget/>
       <TrendWidget :trends="trends"/>
-      <WeatherWidget/>
+      <MarketTimerWidget/>
       <CommunityWidget/>
       <PromoBanner v-if="!isLoggedIn" @login="handleLogin"/>
     </div>
@@ -17,7 +17,7 @@ import {ref} from 'vue';
 import IntelligenceBriefing from './IntelligenceBriefing.vue';
 import MetricWidget from './MetricWidget.vue';
 import TrendWidget from './TrendWidget.vue';
-import WeatherWidget from './WeatherWidget.vue';
+import MarketTimerWidget from './MarketTimerWidget.vue';
 import PromoBanner from './PromoBanner.vue';
 import CommunityWidget from "@/components/dashboard/CommunityWidget.vue";
 

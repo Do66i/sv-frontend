@@ -11,7 +11,37 @@
     padding: 24px 16px;
   }
 
-  // [1] AI 브리핑 카드: 프리미엄 다크/그라디언트 믹스 스타일
+  // [공통] 위젯 카드 스타일
+  // 조잡함을 줄이기 위해 기본 hover 애니메이션(translateY)은 제거하고 필요한 곳에만 별도 부여
+  .widget-card {
+    background: var.$white;
+    border-radius: var.$radius-lg;
+    padding: 28px;
+    border: 1px solid var.$gray-200;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+
+    .widget-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 24px;
+
+      .title-left {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      h4 {
+        color: var.$gray-900;
+        font-size: 1.15rem;
+        font-weight: 700;
+      }
+    }
+  }
+
+  // [1] AI 브리핑 카드
   .ai-briefing {
     background: var.$white;
     padding: 32px;
@@ -120,7 +150,7 @@
     }
   }
 
-  // [2] 그리드 레이아웃 (지표, 트렌드, 날씨)
+  // [2] 그리드 레이아웃
   .dashboard-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -132,53 +162,19 @@
     }
   }
 
-  // [3] 공통 위젯 카드 스타일
-  .widget-card {
-    background: var.$white;
-    border-radius: var.$radius-lg;
-    padding: 28px;
-    border: 1px solid var.$gray-200;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
-
-    &:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.06);
-    }
-
-    .widget-title {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 24px;
-
-      .title-left {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-      }
-
-      h4 {
-        color: var.$gray-900;
-        font-size: 1.15rem;
-        font-weight: 700;
-      }
-    }
-  }
-
-  // [4] 주요 지표 위젯 (Metric) 고도화
+  // [4] 주요 지표 위젯 (Metric)
   .metric-widget {
     .data-item {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 16px; // 여백을 늘려 더 시원하게
+      padding: 16px;
       border-radius: var.$radius-md;
       transition: all 0.2s ease;
 
       &:hover {
         background-color: var.$gray-50;
-        transform: translateX(4px); // 옆으로 살짝 미는 인터랙션 추가
+        transform: translateX(4px);
       }
 
       .label-group {
@@ -195,7 +191,7 @@
         .market-status {
           font-size: 0.65rem;
           font-weight: 800;
-          color: var.$color-primary; // 브랜드 컬러로 LIVE 표시
+          color: var.$color-primary;
           background: var.$color-accent;
           padding: 2px 6px;
           border-radius: 4px;
@@ -219,22 +215,16 @@
         .change {
           font-size: 0.85rem;
           font-weight: 700;
-          font-variant-numeric: tabular-nums; // 숫자 폭 고정
+          font-variant-numeric: tabular-nums;
 
-          // 상태 색상 확실히 적용
-          &.up {
-            color: var.$color-danger !important;
-          }
-
-          &.down {
-            color: var.$color-primary !important;
-          }
+          &.up { color: var.$color-danger !important; }
+          &.down { color: var.$color-primary !important; }
         }
       }
     }
   }
 
-  // [5] 실시간 검색어 위젯 (Trend) 고도화
+  // [5] 실시간 검색어 위젯
   .trend-widget {
     display: flex;
     flex-direction: column;
@@ -291,13 +281,13 @@
 
     .trend-list-container {
       min-height: 280px;
-      perspective: 2000px; // 원근감을 더 깊게 줘서 뒤집히는게 잘 보이게 함
+      perspective: 2000px;
 
       .trend-list {
         display: flex;
         flex-direction: column;
         gap: 10px;
-        position: relative; // 중요! 자식의 absolute 기준점
+        position: relative;
       }
 
       .trend-item {
@@ -308,13 +298,7 @@
         background: var.$gray-50;
         border-radius: 14px;
         border: 1px solid var.$gray-200;
-        backface-visibility: hidden; // 뒤집힐 때 뒷면 안보이게 함
-
-        &:hover {
-          background-color: var.$white;
-          border-color: var.$color-primary;
-          transform: scale(1.02);
-        }
+        backface-visibility: hidden;
 
         .trend-main {
           display: flex;
@@ -328,95 +312,125 @@
     }
   }
 
-  // --------------------------------------------------
-  // 튀리리릭 뒤집히는 애니메이션 (Flip Effect) 핵심
-  // --------------------------------------------------
-
-  // 1. 들어오는 애니메이션
+  // 트렌드 뒤집기 애니메이션 (Flip Effect)
   .flip-list-enter-active {
     transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
-    transition-delay: var(--delay); // 위에서 아래로 순차적으로 뒤집힘
+    transition-delay: var(--delay);
   }
-
-  // 2. 나가는 애니메이션
   .flip-list-leave-active {
     transition: all 0.4s ease-in;
-    position: absolute; // 중요: 나가는 놈을 레이어에서 빼야 새 놈이 올라옴
+    position: absolute;
     width: 100%;
   }
+  .flip-list-enter-from { opacity: 0; transform: rotateX(-90deg) translateY(-30px); }
+  .flip-list-leave-to { opacity: 0; transform: rotateX(90deg) translateY(30px); }
+  .flip-list-move { transition: transform 0.5s ease; }
 
-  // 3. 시작 상태 (위에서 90도 뒤집힘)
-  .flip-list-enter-from {
-    opacity: 0;
-    transform: rotateX(-90deg) translateY(-30px);
-  }
-
-  // 4. 종료 상태 (아래로 90도 뒤집히며 퇴장)
-  .flip-list-leave-to {
-    opacity: 0;
-    transform: rotateX(90deg) translateY(30px);
-  }
-
-  // 5. 이동 애니메이션
-  .flip-list-move {
-    transition: transform 0.5s ease;
-  }
-
-  // [6] 날씨 위젯 (Weather)
-  .weather-widget {
-    .weather-body {
+  // [6] 마켓 타이머 위젯 (Market Timer) - 할배할매 직관성 & 맥북 대응
+  .market-timer-widget {
+    .market-status-container {
       display: flex;
       flex-direction: column;
-      gap: 24px;
+      gap: 16px;
+    }
 
-      .weather-main {
+    .market-box {
+      background: var.$gray-50;
+      padding: 24px;
+      border-radius: 24px;
+      border: 2px solid var.$gray-200;
+      transition: all 0.3s ease;
+
+      &.open {
+        background: #fffafa;
+        border-color: var.$color-danger;
+        .status-tag { background: var.$color-danger; color: white; }
+        .countdown { color: var.$color-danger; }
+        .progress-bar { background: var.$color-danger; }
+      }
+
+      &.closed {
+        background: #fcfcfc;
+        border-color: var.$gray-300;
+        .status-tag { background: var.$gray-500; color: white; }
+        .countdown { color: var.$gray-700; }
+        .progress-bar { background: var.$gray-400; }
+      }
+
+      .market-header {
         display: flex;
+        justify-content: space-between;
         align-items: center;
-        gap: 20px;
-        .temp-display {
+        margin-bottom: 20px;
+
+        .market-name {
           display: flex;
-          align-items: flex-start;
-          .current-temp {
-            font-size: 3.5rem;
-            font-weight: 900;
-            line-height: 1;
-            letter-spacing: -0.05em;
-            color: var.$gray-900;
-          }
-          .degree {
-            font-size: 1.2rem;
-            font-weight: 800;
-            color: var.$color-primary;
-            margin-top: 8px;
-          }
+          align-items: center;
+          gap: 10px;
+          .flag { font-size: 1.6rem; }
+          strong { font-size: 1.15rem; font-weight: 800; color: var.$gray-900; }
         }
-        .condition-group {
-          display: flex;
-          flex-direction: column;
-          .weather-desc { font-size: 1.1rem; font-weight: 800; color: var.$gray-800; }
-          .location { font-size: 0.85rem; font-weight: 600; color: var.$gray-400; }
+
+        .status-tag {
+          font-size: 0.75rem;
+          font-weight: 800;
+          padding: 6px 14px;
+          border-radius: 100px;
         }
       }
 
-      .weather-details {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 12px;
-        .detail-item {
-          background: var.$gray-50;
-          padding: 10px 14px;
-          border-radius: 12px;
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          .d-label { font-size: 0.8rem; font-weight: 600; color: var.$gray-500; }
-          .d-value { font-size: 0.85rem; font-weight: 700; color: var.$gray-800; }
+      .main-display {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+
+        .label { font-size: 0.8rem; font-weight: 700; color: var.$gray-500; margin-bottom: 4px; }
+
+        // 맥북 줄바꿈 방지: 폰트 크기 최적화 (1.6rem -> 1.4rem)
+        .time {
+          font-size: 1.4rem;
+          font-weight: 900;
+          color: var.$gray-900;
+          font-family: 'tabular-nums';
+        }
+
+        // 맥북 줄바꿈 방지: 카운트다운 텍스트 최적화
+        .countdown {
+          font-size: 1.3rem;
+          font-weight: 900;
+          white-space: nowrap; // 줄바꿈 강제 방지
+        }
+
+        .divider {
+          width: 1px;
+          height: 36px;
+          background: var.$gray-200;
+          margin: 0 8px;
+        }
+
+        .current-info, .countdown-info {
+          flex: 1;
+          text-align: center;
+        }
+      }
+
+      .progress-container {
+        width: 100%;
+        height: 10px;
+        background: var.$gray-200;
+        border-radius: 100px;
+        overflow: hidden;
+
+        .progress-bar {
+          height: 100%;
+          border-radius: 100px;
         }
       }
     }
   }
 
-  // [7] 커뮤니티 위젯 (Community Hot Picks)
+  // [7] 커뮤니티 위젯
   .community-widget {
     grid-column: 1 / -1;
     margin-top: 8px;
@@ -476,7 +490,7 @@
     }
   }
 
-  // [8] 로그인 배너 (Promo Banner)
+  // [8] 로그인 배너
   .promo-banner {
     grid-column: 1 / -1;
     background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
