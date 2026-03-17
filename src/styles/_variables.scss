@@ -1,30 +1,24 @@
-// 1. 브랜드 컬러 (Brand Colors);
-$color-primary:   #1e3a8a;
-$color-secondary: #3b82f6;
-$color-success:   #10b981;
-$color-danger:    #ef4444;
+// 1. 브랜드 컬러 (더 선명하고 현대적인 블루로 교체)
+$color-primary:   #0a58ca; // 메인 브랜드 컬러 (Electric Blue)
+$color-secondary: #3d8bfd; // 보조 및 호버 컬러
+$color-accent:    #e7f1ff; // 포인트 배경색
+$color-success:   #198754;
+$color-danger:    #dc3545;
 $white:           #ffffff;
 
-// 2. 무채색 단계 (Gray Scale) - 100~900 전체 단계;
-$gray-100: #f3f4f6; // 가장 밝은 회색 (배경색 등);
-$gray-200: #e5e7eb;
-$gray-300: #d1d5db; // 보더(Border) 라인;
-$gray-400: #9ca3af;
-$gray-500: #6b7280; // 보조 텍스트;
-$gray-600: #4b5563; // 아까 에러 났던 변수;
-$gray-700: #374151; // 강조 보조 텍스트;
-$gray-800: #1f2937;
-$gray-900: #111827; // 메인 텍스트/제목;
-$black:    #000000;
+// 2. 무채색 단계 (세분화 및 블루 틴트 추가)
+$gray-50:  #f8f9fa;
+$gray-100: #f1f3f5;
+$gray-200: #e9ecef;
+$gray-300: #dee2e6;
+$gray-400: #ced4da;
+$gray-500: #adb5bd;
+$gray-600: #6c757d;
+$gray-700: #495057;
+$gray-800: #343a40;
+$gray-900: #212529;
 
-// 3. 간격 설정 (Spacing);
-$space-xs: 0.25rem;
-$space-sm: 0.5rem;
-$space-md: 1rem;
-$space-lg: 1.5rem;
-$space-xl: 2rem;
-
-// 4. 모서리 곡률 (Border Radius);
-$radius-sm: 4px;
-$radius-md: 8px;
-$radius-lg: 12px;
+// 4. 모서리 곡률 (더 둥글게 조정하여 부드러운 느낌 강조)
+$radius-md: 12px;
+$radius-lg: 20px;
+$radius-xl: 28px;

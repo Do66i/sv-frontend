@@ -3,27 +3,30 @@
 // 게시판 레이아웃 컨테이너
 .board-layout {
   width: 100%;
-  max-width: 1100px;
+  max-width: 1200px; // 대시보드와 동일하게 1200px로 확장
   margin: 0 auto; // 가로 중앙 배치;
-  padding: 0 40px;
+  padding: 40px 24px; // 대시보드 여백과 일치 (상하 40px, 좌우 24px)
   box-sizing: border-box;
+  height: auto; // 여백에서도 스크롤 가능하도록 높이 해제
+  overflow: visible; // 내부 스크롤 제거
 
   @media (max-width: 768px) {
-    padding: 0 20px;
+    padding: 24px 16px; // 모바일 여백 최적화
   }
 
   // 헤더 (중앙 상단)
   .board-header {
     text-align: center;
-    margin-bottom: 50px;
+    margin-bottom: 60px; // 여백을 조금 더 넓혀서 시원하게 변경
     margin-top: 20px;
 
     .title-area {
       h2 {
-        font-size: 2.5rem; // PC 기본 크기;
+        font-size: 2.8rem; // 폰트 크기 소폭 확대
         font-weight: 800;
         color: var.$gray-900;
         margin: 0;
+        letter-spacing: -0.04em; // 자간 조정으로 세련미 추가
 
         span {
           color: var.$color-primary;
@@ -31,34 +34,36 @@
 
         // 모바일 폰트 축소;
         @media (max-width: 768px) {
-          font-size: 1.8rem;
+          font-size: 2rem;
         }
       }
 
       p {
-        margin-top: 10px;
+        margin-top: 12px;
         color: var.$gray-500;
-        font-size: 1.1rem;
+        font-size: 1.15rem;
 
         // 모바일 설명글 축소;
         @media (max-width: 768px) {
-          font-size: 0.9rem;
+          font-size: 1rem;
         }
       }
     }
 
     .write-btn {
-      margin: 24px auto 0;
+      margin: 32px auto 0;
       background-color: var.$color-primary;
       color: var.$white;
-      padding: 12px 24px;
+      padding: 14px 28px;
       border-radius: var.$radius-md;
-      font-weight: 600;
+      font-weight: 700;
       border: none;
       cursor: pointer;
       display: flex;
       align-items: center;
       gap: 8px;
+      box-shadow: 0 4px 14px rgba(var.$color-primary, 0.3); // 버튼에 그림자 추가
+      transition: all 0.2s ease;
 
       &::before {
         content: '+';
@@ -67,85 +72,105 @@
 
       &:hover {
         background-color: var.$color-secondary;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(var.$color-primary, 0.4);
       }
     }
   }
 
-  // 게시글 그리드 (좌측부터 한 줄에 5개 목표, 모바일은 1개)
+  // 게시글 그리드 (한 행에 4개씩 배치)
   .board-grid {
     display: grid;
-    // PC 기준 한 줄에 최대 5개까지 자연스럽게 배치;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    // PC 기준 한 줄에 정확히 4개씩 배치하도록 수정
+    grid-template-columns: repeat(4, 1fr);
     gap: 24px;
     width: 100%;
     justify-content: start;
 
+    @media (max-width: 1024px) {
+      grid-template-columns: repeat(2, 1fr); // 태블릿에선 2개씩
+    }
+
     @media (max-width: 768px) {
-      // << 수정: 모바일에서 카드가 너무 가로로 꽉 차지 않게 여백 조정 (비율 유지 핵심)
-      grid-template-columns: 1fr;
+      grid-template-columns: 1fr; // 모바일은 1개씩
       gap: 20px;
-      padding: 0 10px; // 카드 양옆에 살짝 여백을 줘서 비율을 잡음
+      padding: 0;
     }
   }
 
   // 카드 디자인
   .board-card {
     background: #ffffff;
-    border-radius: 24px;
+    border-radius: var.$radius-lg; // 변수 사용으로 통일감 부여
     border: 1px solid var.$gray-200;
     overflow: hidden;
-    transition: all 0.2s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     cursor: pointer;
     display: flex;
     flex-direction: column;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
 
     &:hover {
       transform: translateY(-8px);
-      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.05);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+      border-color: rgba(var.$color-primary, 0.2);
     }
 
     .thumbnail {
       width: 100%;
       aspect-ratio: 16 / 10;
       background-color: var.$gray-100;
+      overflow: hidden;
 
       img {
         width: 100%;
         height: 100%;
         object-fit: cover;
+        transition: transform 0.5s ease;
       }
     }
 
+    &:hover .thumbnail img {
+      transform: scale(1.08); // 호버 시 이미지 미세 확대
+    }
+
     .content {
-      padding: 20px;
+      padding: 24px;
       flex-grow: 1;
+
       @media (max-width: 768px) {
-        padding: 16px; // << 수정: 모바일에서 내부 여백을 살짝 줄여서 콤팩트하게
+        padding: 20px;
       }
 
       .title {
-        font-size: 1.1rem;
+        font-size: 1.15rem;
         font-weight: 700;
-        margin-bottom: 20px;
+        margin-bottom: 24px;
         height: 2.8em;
+        line-height: 1.4;
+        color: var.$gray-900;
         overflow: hidden;
         display: -webkit-box;
         -webkit-line-clamp: 2;
         -webkit-box-orient: vertical;
 
         @media (max-width: 768px) {
-          font-size: 1rem;
+          font-size: 1.1rem;
         }
-        // 모바일 카드 제목 축소;
       }
 
       .meta {
         display: flex;
         justify-content: space-between;
-        padding-top: 12px;
+        padding-top: 16px;
         border-top: 1px solid var.$gray-100;
-        font-size: 0.85rem;
+        font-size: 0.9rem;
         color: var.$gray-500;
+        font-weight: 500;
+
+        .author {
+          color: var.$gray-700;
+        }
       }
     }
   }
@@ -156,11 +181,13 @@
     width: 100%;
     height: 350px;
     display: flex;
+    flex-direction: column;
+    gap: 16px;
     justify-content: center;
     align-items: center;
-    background-color: #ffffff;
+    background-color: var.$gray-50;
     border: 2px dashed var.$gray-200;
-    border-radius: 24px;
+    border-radius: var.$radius-lg;
     color: var.$gray-400;
     font-weight: 600;
   }

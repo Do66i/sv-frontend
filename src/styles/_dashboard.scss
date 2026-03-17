@@ -1,0 +1,165 @@
+@use "variables" as var;
+
+.dashboard-container {
+  padding: 40px 24px; // 상하 여백을 충분히 주어 더 세련되게 변경
+  max-width: 1200px; // 조금 더 넓게 조정
+  margin: 0 auto;
+  height: auto; // 고정 높이 제거 (부모 스크롤 이용)
+  overflow: visible; // 내부 스크롤 제거
+
+  @media (max-width: 768px) {
+    padding: 24px 16px;
+  }
+
+  // AI 브리핑 카드
+  .ai-briefing {
+    background: linear-gradient(135deg, #ffffff 0%, var.$color-accent 100%);
+    padding: 32px;
+    border-radius: var.$radius-lg;
+    border: 1px solid rgba(var.$color-primary, 0.1);
+    margin-bottom: 32px;
+    box-shadow: 0 10px 30px -5px rgba(var.$color-primary, 0.05);
+
+    .brief-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 16px;
+
+      .emoji { font-size: 1.6rem; }
+      h3 {
+        color: var.$color-primary;
+        font-size: 1.4rem;
+        font-weight: 800;
+        letter-spacing: -0.03em;
+      }
+    }
+
+    .brief-text {
+      color: var.$gray-700;
+      line-height: 1.8;
+      font-size: 1.05rem;
+      word-break: keep-all;
+      b { color: var.$color-primary; font-weight: 700; }
+    }
+  }
+
+  // 그리드 레이아웃 (지표, 트렌드, 날씨)
+  .dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 24px;
+    margin-bottom: 32px;
+
+    @media (max-width: 480px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  // 공통 위젯 카드 스타일
+  .widget-card {
+    background: var.$white;
+    border-radius: var.$radius-lg;
+    padding: 28px;
+    border: 1px solid var.$gray-200;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+
+    &:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.06);
+    }
+
+    .widget-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 24px;
+
+      .title-left {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      h4 {
+        color: var.$gray-900;
+        font-size: 1.15rem;
+        font-weight: 700;
+      }
+    }
+  }
+
+  // 데이터 리스트
+  .data-list {
+    .data-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 14px 12px;
+      border-radius: var.$radius-md;
+      &:hover { background-color: var.$gray-50; }
+      .label { color: var.$gray-600; font-weight: 600; }
+      .value { font-weight: 800; &.up { color: var.$color-danger; } &.down { color: var.$color-primary; } }
+    }
+  }
+
+  // 커뮤니티 위젯 (가로 전체 차지)
+  .community-widget {
+    grid-column: 1 / -1;
+    margin-top: 8px;
+
+    .post-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      @media (max-width: 992px) { grid-template-columns: repeat(2, 1fr); }
+      @media (max-width: 768px) { grid-template-columns: 1fr; }
+    }
+
+    .post-card {
+      background: var.$gray-50;
+      padding: 16px;
+      border-radius: var.$radius-lg;
+      transition: all 0.3s ease;
+      &:hover {
+        background: var.$white;
+        box-shadow: 0 8px 16px rgba(0,0,0,0.05);
+        .post-thumb img { transform: scale(1.05); }
+      }
+      .post-thumb {
+        border-radius: var.$radius-md;
+        overflow: hidden;
+        aspect-ratio: 16/10;
+        img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
+      }
+      .post-title {
+        margin-top: 16px;
+        font-size: 1.05rem;
+        font-weight: 700;
+        color: var.$gray-800;
+      }
+    }
+  }
+
+  // 로그인 배너
+  .promo-banner {
+    grid-column: 1 / -1;
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    padding: 64px 32px;
+    border-radius: var.$radius-xl;
+    margin-top: 40px;
+    text-align: center;
+
+    h4 { color: var.$white !important; font-size: 1.8rem; font-weight: 800; }
+    p { color: var.$gray-400; font-size: 1.1rem; margin-top: 16px; margin-bottom: 32px; }
+    .login-btn {
+      padding: 16px 48px;
+      background: var.$color-primary;
+      color: var.$white;
+      font-weight: 800;
+      border-radius: 16px;
+      box-shadow: 0 10px 20px rgba(var.$color-primary, 0.4);
+      &:hover { transform: translateY(-2px); box-shadow: 0 15px 30px rgba(var.$color-primary, 0.5); }
+    }
+  }
+}

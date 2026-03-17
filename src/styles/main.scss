@@ -1,6 +1,7 @@
 @use "variables" as var;
 @use "reset";
 @use "board";
+@use "dashboard";
 
 // [기본 설정]
 body {
@@ -166,6 +167,7 @@ body {
     flex-direction: column;
     min-width: 0;
     transition: margin-left 0.3s ease;
+    height: 100vh; // 화면 높이 고정
 
     @media (max-width: 768px) {
       margin-left: 60px;
@@ -203,8 +205,9 @@ body {
 
     .content-view {
       flex: 1;
-      overflow-y: auto;
-      padding: 20px 0 60px;
+      overflow-y: auto; // 스크롤 주체를 여기로 설정! (여백 포함 전체 스크롤 가능)
+      padding: 0; // 내부 컨테이너에서 여백 관리하도록 초기화
+      -webkit-overflow-scrolling: touch;
     }
   }
 }
