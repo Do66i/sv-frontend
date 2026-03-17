@@ -3,7 +3,7 @@
     <div class="widget-title">
       <div class="title-left">
         <span class="emoji">⏱️</span>
-        <h4>글로벌 마켓 클락</h4>
+        <h4>거래소 시계탑</h4>
       </div>
     </div>
 
