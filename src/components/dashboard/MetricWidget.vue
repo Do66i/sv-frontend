@@ -1,31 +1,31 @@
 <template>
-  <section class="widget-card">
+  <section class="widget-card metric-widget">
     <div class="widget-title">
-      <span class="emoji">📈</span>
-      <h4>주요 지표</h4>
+      <div class="title-left">
+        <span class="emoji">📈</span>
+        <h4>주요 지표</h4>
+      </div>
     </div>
     <div class="data-list">
       <div v-for="metric in metrics" :key="metric.label" class="data-item">
-        <span class="label">{{ metric.label }}</span>
-        <span class="value" :class="metric.status">{{ metric.value }}</span>
+        <div class="label-group">
+          <span class="label">{{ metric.label }}</span>
+          <span class="market-status">LIVE</span>
+        </div>
+        <div class="value-group">
+          <span class="price">{{ metric.price }}</span>
+          <span class="change" :class="metric.status">{{ metric.change }}</span>
+        </div>
       </div>
     </div>
   </section>
 </template>
 
 <script setup lang="ts">
-// 나중에 Props로 데이터를 받으면 더 좋아!
+// 설명: status 값은 CSS 클래스명과 일치해야 함 (up, down)
 const metrics = [
-  { label: 'S&P 500', value: '5,123.42 (+0.45%)', status: 'up' },
-  { label: '나스닥 100', value: '18,210.15 (-0.12%)', status: 'down' },
-  { label: '원/달러 환율', value: '1,342.50', status: '' },
+  { label: 'S&P 500', price: '5,123.42', change: '+0.45%', status: 'up' },
+  { label: '나스닥 100', price: '18,210.15', change: '-0.12%', status: 'down' },
+  { label: '원/달러 환율', price: '1,342.50', change: '0.00%', status: '' },
 ];
 </script>
-
-<script setup lang="ts">
-
-</script>
-
-<style scoped lang="scss">
-
-</style>

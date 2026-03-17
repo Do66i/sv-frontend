@@ -1,50 +1,126 @@
 @use "variables" as var;
 
 .dashboard-container {
-  padding: 40px 24px; // 상하 여백을 충분히 주어 더 세련되게 변경
-  max-width: 1200px; // 조금 더 넓게 조정
+  padding: 40px 24px;
+  max-width: 1200px;
   margin: 0 auto;
-  height: auto; // 고정 높이 제거 (부모 스크롤 이용)
-  overflow: visible; // 내부 스크롤 제거
+  height: auto;
+  overflow-x: hidden; // 가로 스크롤 방지
 
   @media (max-width: 768px) {
     padding: 24px 16px;
   }
 
-  // AI 브리핑 카드
+  // [1] AI 브리핑 카드: 프리미엄 다크/그라디언트 믹스 스타일
   .ai-briefing {
-    background: linear-gradient(135deg, #ffffff 0%, var.$color-accent 100%);
+    background: var.$white;
     padding: 32px;
     border-radius: var.$radius-lg;
-    border: 1px solid rgba(var.$color-primary, 0.1);
+    border: 1px solid rgba(var.$color-primary, 0.08);
     margin-bottom: 32px;
-    box-shadow: 0 10px 30px -5px rgba(var.$color-primary, 0.05);
+    box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.05);
+    position: relative;
+    overflow: hidden;
+
+    .glow-effect {
+      position: absolute;
+      top: -100px;
+      right: -100px;
+      width: 300px;
+      height: 300px;
+      background: radial-gradient(circle, rgba(var.$color-primary, 0.08) 0%, rgba(255, 255, 255, 0) 70%);
+      pointer-events: none;
+    }
 
     .brief-header {
       display: flex;
-      align-items: center;
-      gap: 14px;
-      margin-bottom: 16px;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 24px;
 
-      .emoji { font-size: 1.6rem; }
-      h3 {
-        color: var.$color-primary;
-        font-size: 1.4rem;
+      .ai-badge {
+        display: inline-block;
+        font-size: 0.65rem;
         font-weight: 800;
-        letter-spacing: -0.03em;
+        color: var.$color-primary;
+        background: rgba(var.$color-primary, 0.1);
+        padding: 4px 8px;
+        border-radius: 6px;
+        letter-spacing: 0.05em;
+        margin-bottom: 8px;
+      }
+
+      h3 {
+        color: var.$gray-900;
+        font-size: 1.5rem;
+        font-weight: 800;
+        letter-spacing: -0.04em;
+      }
+
+      .refresh-time {
+        font-size: 0.75rem;
+        color: var.$gray-400;
+        font-weight: 500;
       }
     }
 
-    .brief-text {
-      color: var.$gray-700;
-      line-height: 1.8;
-      font-size: 1.05rem;
-      word-break: keep-all;
-      b { color: var.$color-primary; font-weight: 700; }
+    .brief-content {
+      position: relative;
+      z-index: 1;
+
+      .brief-text {
+        color: var.$gray-700;
+        line-height: 1.8;
+        font-size: 1.1rem;
+        word-break: keep-all;
+        margin-bottom: 20px;
+
+        .highlight {
+          color: var.$color-primary;
+          font-weight: 800;
+          position: relative;
+          z-index: 1;
+
+          &::after {
+            content: '';
+            position: absolute;
+            bottom: 2px;
+            left: 0;
+            width: 100%;
+            height: 8px;
+            background: rgba(var.$color-primary, 0.08);
+            z-index: -1;
+          }
+        }
+      }
+
+      .brief-tags {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+
+        .tag {
+          font-size: 0.85rem;
+          font-weight: 600;
+          color: var.$gray-500;
+          background: var.$gray-50;
+          padding: 6px 14px;
+          border-radius: 100px;
+          border: 1px solid var.$gray-100;
+          transition: all 0.2s ease;
+
+          &:hover {
+            color: var.$color-primary;
+            background: var.$white;
+            border-color: var.$color-primary;
+            transform: translateY(-2px);
+          }
+        }
+      }
     }
   }
 
-  // 그리드 레이아웃 (지표, 트렌드, 날씨)
+  // [2] 그리드 레이아웃 (지표, 트렌드, 날씨)
   .dashboard-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -56,7 +132,7 @@
     }
   }
 
-  // 공통 위젯 카드 스타일
+  // [3] 공통 위젯 카드 스타일
   .widget-card {
     background: var.$white;
     border-radius: var.$radius-lg;
@@ -90,20 +166,257 @@
     }
   }
 
-  // 데이터 리스트
-  .data-list {
+  // [4] 주요 지표 위젯 (Metric) 고도화
+  .metric-widget {
     .data-item {
       display: flex;
       justify-content: space-between;
-      padding: 14px 12px;
+      align-items: center;
+      padding: 16px; // 여백을 늘려 더 시원하게
       border-radius: var.$radius-md;
-      &:hover { background-color: var.$gray-50; }
-      .label { color: var.$gray-600; font-weight: 600; }
-      .value { font-weight: 800; &.up { color: var.$color-danger; } &.down { color: var.$color-primary; } }
+      transition: all 0.2s ease;
+
+      &:hover {
+        background-color: var.$gray-50;
+        transform: translateX(4px); // 옆으로 살짝 미는 인터랙션 추가
+      }
+
+      .label-group {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+
+        .label {
+          color: var.$gray-600;
+          font-weight: 600;
+          font-size: 0.95rem;
+        }
+
+        .market-status {
+          font-size: 0.65rem;
+          font-weight: 800;
+          color: var.$color-primary; // 브랜드 컬러로 LIVE 표시
+          background: var.$color-accent;
+          padding: 2px 6px;
+          border-radius: 4px;
+          width: fit-content;
+        }
+      }
+
+      .value-group {
+        text-align: right;
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+
+        .price {
+          font-size: 1.1rem;
+          font-weight: 800;
+          color: var.$gray-900;
+          letter-spacing: -0.02em;
+        }
+
+        .change {
+          font-size: 0.85rem;
+          font-weight: 700;
+          font-variant-numeric: tabular-nums; // 숫자 폭 고정
+
+          // 상태 색상 확실히 적용
+          &.up {
+            color: var.$color-danger !important;
+          }
+
+          &.down {
+            color: var.$color-primary !important;
+          }
+        }
+      }
     }
   }
 
-  // 커뮤니티 위젯 (가로 전체 차지)
+  // [5] 실시간 검색어 위젯 (Trend) 고도화
+  .trend-widget {
+    display: flex;
+    flex-direction: column;
+
+    .widget-title {
+      .trend-controls {
+        display: flex;
+        gap: 4px;
+        .ctrl-btn {
+          background: var.$gray-100;
+          border: none;
+          padding: 4px 8px;
+          border-radius: 6px;
+          font-size: 0.7rem;
+          font-weight: 800;
+          color: var.$gray-500;
+          cursor: pointer;
+          text-transform: uppercase;
+          transition: all 0.2s;
+          &:hover { background: var.$gray-200; color: var.$gray-900; }
+        }
+      }
+    }
+
+    .trend-tabs {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 20px;
+      padding-bottom: 4px;
+      .tab-item {
+        background: none;
+        border: none;
+        padding: 4px 0;
+        font-size: 0.85rem;
+        font-weight: 700;
+        color: var.$gray-400;
+        cursor: pointer;
+        position: relative;
+        transition: color 0.2s;
+        &.active {
+          color: var.$color-primary;
+          &::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var.$color-primary;
+          }
+        }
+      }
+    }
+
+    .trend-list-container {
+      min-height: 280px;
+      perspective: 2000px; // 원근감을 더 깊게 줘서 뒤집히는게 잘 보이게 함
+
+      .trend-list {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        position: relative; // 중요! 자식의 absolute 기준점
+      }
+
+      .trend-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 14px 16px;
+        background: var.$gray-50;
+        border-radius: 14px;
+        border: 1px solid var.$gray-200;
+        backface-visibility: hidden; // 뒤집힐 때 뒷면 안보이게 함
+
+        &:hover {
+          background-color: var.$white;
+          border-color: var.$color-primary;
+          transform: scale(1.02);
+        }
+
+        .trend-main {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          .rank { font-weight: 900; color: var.$color-primary; font-style: italic; font-size: 1.1rem; }
+          .keyword { font-weight: 700; color: var.$gray-800; font-size: 0.95rem; }
+        }
+        .status-tag { font-size: 0.6rem; font-weight: 800; color: #fff; background: var.$color-danger; padding: 2px 6px; border-radius: 4px; }
+      }
+    }
+  }
+
+  // --------------------------------------------------
+  // 튀리리릭 뒤집히는 애니메이션 (Flip Effect) 핵심
+  // --------------------------------------------------
+
+  // 1. 들어오는 애니메이션
+  .flip-list-enter-active {
+    transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transition-delay: var(--delay); // 위에서 아래로 순차적으로 뒤집힘
+  }
+
+  // 2. 나가는 애니메이션
+  .flip-list-leave-active {
+    transition: all 0.4s ease-in;
+    position: absolute; // 중요: 나가는 놈을 레이어에서 빼야 새 놈이 올라옴
+    width: 100%;
+  }
+
+  // 3. 시작 상태 (위에서 90도 뒤집힘)
+  .flip-list-enter-from {
+    opacity: 0;
+    transform: rotateX(-90deg) translateY(-30px);
+  }
+
+  // 4. 종료 상태 (아래로 90도 뒤집히며 퇴장)
+  .flip-list-leave-to {
+    opacity: 0;
+    transform: rotateX(90deg) translateY(30px);
+  }
+
+  // 5. 이동 애니메이션
+  .flip-list-move {
+    transition: transform 0.5s ease;
+  }
+
+  // [6] 날씨 위젯 (Weather)
+  .weather-widget {
+    .weather-body {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+
+      .weather-main {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        .temp-display {
+          display: flex;
+          align-items: flex-start;
+          .current-temp {
+            font-size: 3.5rem;
+            font-weight: 900;
+            line-height: 1;
+            letter-spacing: -0.05em;
+            color: var.$gray-900;
+          }
+          .degree {
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: var.$color-primary;
+            margin-top: 8px;
+          }
+        }
+        .condition-group {
+          display: flex;
+          flex-direction: column;
+          .weather-desc { font-size: 1.1rem; font-weight: 800; color: var.$gray-800; }
+          .location { font-size: 0.85rem; font-weight: 600; color: var.$gray-400; }
+        }
+      }
+
+      .weather-details {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+        .detail-item {
+          background: var.$gray-50;
+          padding: 10px 14px;
+          border-radius: 12px;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          .d-label { font-size: 0.8rem; font-weight: 600; color: var.$gray-500; }
+          .d-value { font-size: 0.85rem; font-weight: 700; color: var.$gray-800; }
+        }
+      }
+    }
+  }
+
+  // [7] 커뮤니티 위젯 (Community Hot Picks)
   .community-widget {
     grid-column: 1 / -1;
     margin-top: 8px;
@@ -121,27 +434,49 @@
       padding: 16px;
       border-radius: var.$radius-lg;
       transition: all 0.3s ease;
+      text-decoration: none;
+
       &:hover {
         background: var.$white;
         box-shadow: 0 8px 16px rgba(0,0,0,0.05);
         .post-thumb img { transform: scale(1.05); }
+        .post-title { color: var.$color-primary; }
       }
+
       .post-thumb {
         border-radius: var.$radius-md;
         overflow: hidden;
         aspect-ratio: 16/10;
+        position: relative;
         img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
+        .likes-badge {
+          position: absolute;
+          bottom: 8px;
+          right: 8px;
+          background: rgba(0,0,0,0.6);
+          color: white;
+          padding: 4px 10px;
+          border-radius: 20px;
+          font-size: 0.75rem;
+          backdrop-filter: blur(4px);
+        }
       }
+
       .post-title {
         margin-top: 16px;
         font-size: 1.05rem;
         font-weight: 700;
         color: var.$gray-800;
+        line-height: 1.4;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
       }
     }
   }
 
-  // 로그인 배너
+  // [8] 로그인 배너 (Promo Banner)
   .promo-banner {
     grid-column: 1 / -1;
     background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
@@ -152,6 +487,7 @@
 
     h4 { color: var.$white !important; font-size: 1.8rem; font-weight: 800; }
     p { color: var.$gray-400; font-size: 1.1rem; margin-top: 16px; margin-bottom: 32px; }
+
     .login-btn {
       padding: 16px 48px;
       background: var.$color-primary;
@@ -159,7 +495,14 @@
       font-weight: 800;
       border-radius: 16px;
       box-shadow: 0 10px 20px rgba(var.$color-primary, 0.4);
-      &:hover { transform: translateY(-2px); box-shadow: 0 15px 30px rgba(var.$color-primary, 0.5); }
+      transition: all 0.2s;
+      cursor: pointer;
+
+      &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 15px 30px rgba(var.$color-primary, 0.5);
+        background-color: var.$color-secondary;
+      }
     }
   }
 }
